@@ -16,16 +16,30 @@ public class SecureContainer {
 			Boolean hasDouble = false;
 			String number = current.toString();
 			int scan;
+			Character curr;
+			Character prev;
+			Integer streak = 0;
 			for (scan = 1; scan < 6; scan++) {
-				if (!valid) {
+				curr = number.charAt(scan);
+				prev = number.charAt(scan-1);
+				
+				if (curr < prev) {
+					valid = false;
 					break;
 				}
-				if (number.charAt(scan) < number.charAt(scan-1)) {
-					valid = false;
+				
+				if (curr == prev) {
+					streak++;
+				} else {
+					if (streak == 1) {
+						hasDouble = true;
+					}
+					streak = 0;
 				}
-				if (number.charAt(scan) == number.charAt(scan-1)) {
-					hasDouble = true;
-				}
+			}
+			
+			if (streak == 1) {
+				hasDouble = true;
 			}
 			
 			if (!hasDouble) {
